@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="theme-color" content="#0F0E12" />
+    <script>
+      try {
+        const savedTheme = localStorage.getItem('portfolio-theme');
+        const mobile = matchMedia('(max-width: 760px)').matches;
+        const light = savedTheme === 'light' || (savedTheme === null && !mobile);
+        if (light) {
+          document.documentElement.dataset.theme = 'light';
+        }
+        document.querySelector('meta[name="theme-color"]').content = light ? '#ffffff' : (mobile ? '#000000' : '#0F0E12');
+      } catch { /* Use the dark theme when storage is unavailable. */ }
+    </script>
+    <meta name="description" content="Портфолио Руслана, продуктового дизайнера. Альфа-Банк, CARDS, МТУСИ, Sono и UI-Kit Cards+." />
+    <title>Руслан — продуктовый дизайнер</title>
+    <script>
+      try {
+        if (localStorage.getItem('portfolio-language') === 'en') {
+          document.documentElement.lang = 'en';
+          document.title = 'Ruslan — Product Designer';
+          document.querySelector('meta[name="description"]').content = 'Portfolio of Ruslan, a product designer. Alfa-Bank, CARDS, MTUCI, Sono, and UI-Kit Cards+.';
+        }
+      } catch { /* Use Russian when storage is unavailable. */ }
+    </script>
+    <script>document.documentElement.classList.add('accordion-ready');</script>
+    <link rel="preload" href="assets/fonts/InterVariable.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="stylesheet" href="styles.css?v=gallery-cursor-24" />
+    <script src="accordion.js?v=gallery-click-close-23" defer></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#works"><span data-i18n-lang="ru">Перейти к работам</span><span data-i18n-lang="en">Skip to work</span></a>
+    <div id="header-root"></div>
+    <div class="page"><main id="works" class="works"><div id="accordion-root" class="accordion-root"></div></main></div>
+  </body>
+</html>
