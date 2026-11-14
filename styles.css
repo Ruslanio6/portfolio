@@ -1319,7 +1319,7 @@ html, body { min-height: 100%; }
     font-family: var(--portfolio-font);
   }
   .mobile-project-copy { display: grid; grid-template-columns: minmax(0, 1fr); grid-template-rows: 17px minmax(44px, auto) minmax(68px, auto); row-gap: 4px; padding-inline: 16px; text-align: center; }
-  .mobile-project-copy__meta { max-width: 100%; overflow: hidden; color: var(--mobile-secondary); font-size: 14px; font-weight: 500; line-height: 17px; text-overflow: ellipsis; white-space: nowrap; }
+  .mobile-project-copy__meta { max-width: 100%; overflow: hidden; color: var(--mobile-secondary); font-size: clamp(12px, 3.75vw, 14px); font-weight: 500; line-height: 17px; text-overflow: ellipsis; white-space: nowrap; }
   .mobile-project-copy h1 {
     align-self: center;
     font-size: clamp(24px, 8vw, 32px);
