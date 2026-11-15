@@ -1509,7 +1509,8 @@ html, body { min-height: 100%; }
 .home-skeleton__mobile { display: none; }
 
 @media (max-width: 760px) {
-  .home-skeleton { background: var(--mobile-background); }
+  .home-skeleton { background: var(--mobile-header-surface); }
+  :root[data-theme="light"] .home-skeleton { background: var(--mobile-background); }
   .home-skeleton__desktop { display: none; }
   .home-skeleton__header {
     inset: var(--mobile-header-top) max(16px, env(safe-area-inset-right, 0px)) auto max(16px, env(safe-area-inset-left, 0px));
