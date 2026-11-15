@@ -40,19 +40,23 @@
     <script>document.documentElement.classList.add('accordion-ready');</script>
     <script>
       if (!/^[1-5]$/.test(new URLSearchParams(location.search).get('project') ?? '')) {
-        const cover = document.createElement('link');
-        const base = 'portfolio-cases/video-demo/artwork';
-        cover.rel = 'preload';
-        cover.as = 'image';
-        cover.fetchPriority = 'high';
-        cover.imageSrcset = [320, 640, 768, 960].map(width => `${base}-${width}.webp?v=2 ${width}w`)
-          .concat(`${base}.webp?v=2 1087w`).join(', ');
-        cover.imageSizes = matchMedia('(max-width: 760px)').matches ? 'min(61.94vw, 33svh, 350px)' : '220px';
-        document.head.append(cover);
+        const projects = [['video-demo', 1087], ['sono', 1087], ['cards', 1087], ['ui-kit-cards', 2172], ['mtuci', 1086]];
+        const sizes = matchMedia('(max-width: 760px)').matches ? 'min(61.94vw, 33svh, 350px)' : '220px';
+        projects.forEach(([project, width], index) => {
+          const cover = document.createElement('link');
+          const base = `portfolio-cases/${project}/artwork`;
+          cover.rel = 'preload';
+          cover.as = 'image';
+          if (index === 0) cover.fetchPriority = 'high';
+          cover.imageSrcset = [320, 640, 768, 960].map(size => `${base}-${size}.webp?v=2 ${size}w`)
+            .concat(`${base}.webp?v=2 ${width}w`).join(', ');
+          cover.imageSizes = sizes;
+          document.head.append(cover);
+        });
       }
     </script>
-    <link rel="stylesheet" href="styles.css?v=media-load-2" />
-    <script src="accordion.js?v=media-load-2" defer></script>
+    <link rel="stylesheet" href="styles.css?v=media-load-3" />
+    <script src="accordion.js?v=media-load-3" defer></script>
   </head>
   <body>
     <a class="skip-link" href="#works"><span data-i18n-lang="ru">Перейти к&nbsp;работам</span><span data-i18n-lang="en">Skip to work</span></a>

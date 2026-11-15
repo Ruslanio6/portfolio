@@ -851,7 +851,6 @@ html, body { min-height: 100%; }
 .gallery-fullview[open] { display: flex; align-items: center; justify-content: center; cursor: pointer; }
 .gallery-fullview figure { display: flex; flex-direction: column; align-items: center; gap: 14px; max-width: min(90vw, 1000px); }
 .gallery-fullview .gallery-artwork { width: min(848px, calc(100vw - 56px), calc((100svh - 180px) * 848 / 1200)); }
-.gallery-full-image:not([data-photo-ready="true"]) { opacity: 0; }
 .mobile-gallery-photo { padding: 0; border: 0; background: transparent; cursor: pointer; }
 .mobile-gallery-photo:focus-visible { outline: 2px solid currentColor; outline-offset: 4px; }
 .gallery-fullview figcaption { color: var(--orbit-muted); max-width: 65ch; font-size: 13px; text-align: center; }
