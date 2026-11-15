@@ -964,7 +964,21 @@ html, body { min-height: 100%; }
   display: grid; grid-template-columns: var(--case-rail) minmax(0, 1fr); column-gap: var(--case-gap);
   align-items: start; width: min(1680px, calc(100% - 64px)); margin-inline: auto; padding-bottom: 104px;
 }
-.project-sidebar { position: fixed; left: var(--case-edge); top: var(--case-top); display: flex; flex-direction: column; gap: 16px; width: var(--case-rail); height: calc(100svh - var(--case-top) - 32px); min-height: 0; animation: project-rail-arrive 600ms cubic-bezier(.22,.61,.36,1) 200ms both; }
+.project-sidebar {
+  position: fixed;
+  z-index: 4;
+  left: var(--case-edge);
+  top: var(--case-top);
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: var(--case-rail);
+  height: calc(100svh - var(--case-top) - 32px);
+  min-height: 0;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  animation: project-rail-arrive 600ms cubic-bezier(.22,.61,.36,1) 200ms both;
+}
 .project-sidebar__identity { flex: none; }
 .project-sidebar__caption { margin-top: 20px; font-size: 13px; line-height: 1.55; }
 .project-sidebar__summary { margin-top: 8px; color: var(--orbit-muted); font-size: 12px; line-height: 1.6; overflow-wrap: anywhere; }
@@ -1061,13 +1075,14 @@ html, body { min-height: 100%; }
   .project-content h1 { font-size: 26px; }
 }
 @media (min-width: 761px) and (max-width: 900px) {
-  .project-sidebar { position: static; width: 100%; height: auto; gap: 24px; margin-bottom: 48px; }
+  .project-sidebar { position: static; width: 100%; height: auto; gap: 24px; margin-bottom: 48px; overflow-y: visible; }
   .project-sidebar__identity { display: grid; grid-template-columns: 104px minmax(0, 1fr); column-gap: 24px; align-items: start; }
   .project-sidebar .project-hero { grid-row: 1 / 3; width: 104px; }
   .project-sidebar__caption { margin-top: 4px; }
   .project-toc { display: flex; flex-wrap: wrap; gap: 0 16px; }
   .project-toc a { grid-template-columns: 2ch minmax(0, 1fr); padding: 6px 0; }
   .project-toc__pointer { display: none; }
+  .project-content__section { scroll-margin-top: 96px; }
   .project-sidebar__controls { flex-direction: row; justify-content: space-between; gap: 24px; }
   .project-nav-link--next { align-items: flex-end; text-align: right; max-width: 60%; }
 }
