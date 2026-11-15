@@ -40,6 +40,9 @@
     <script>document.documentElement.classList.add('accordion-ready');</script>
     <script>
       if (!/^[1-5]$/.test(new URLSearchParams(location.search).get('project') ?? '')) {
+        document.documentElement.classList.add('home-loading');
+        // Let navigation recover if the script or an image stalls.
+        setTimeout(() => document.documentElement.classList.remove('home-loading'), 12000);
         const projects = [['video-demo', 1087], ['sono', 1087], ['cards', 1087], ['ui-kit-cards', 2172], ['mtuci', 1086]];
         const sizes = matchMedia('(max-width: 760px)').matches ? 'min(61.94vw, 33svh, 350px)' : '220px';
         projects.forEach(([project, width], index) => {
@@ -55,12 +58,34 @@
         });
       }
     </script>
-    <link rel="stylesheet" href="styles.css?v=media-load-3" />
-    <script src="accordion.js?v=media-load-3" defer></script>
+    <link rel="stylesheet" href="styles.css?v=home-skeleton-1" />
+    <script src="accordion.js?v=home-skeleton-1" defer></script>
   </head>
   <body>
     <a class="skip-link" href="#works"><span data-i18n-lang="ru">Перейти к&nbsp;работам</span><span data-i18n-lang="en">Skip to work</span></a>
     <div id="header-root"></div>
     <div class="page"><main id="works" class="works"><div id="accordion-root" class="accordion-root"></div></main></div>
+    <div class="home-skeleton" aria-hidden="true">
+      <div class="home-skeleton__header">
+        <div class="home-skeleton__identity"><span></span><span></span></div>
+        <span class="home-skeleton__menu"></span>
+      </div>
+      <div class="home-skeleton__desktop">
+        <div class="orbit-perspective"><div class="orbit-perspective__plane">
+          <span class="home-skeleton__disc" style="--skeleton-angle: 72deg"></span>
+          <span class="home-skeleton__disc" style="--skeleton-angle: 36deg"></span>
+          <span class="home-skeleton__disc" style="--skeleton-angle: 0deg"></span>
+          <span class="home-skeleton__disc" style="--skeleton-angle: -36deg"></span>
+          <span class="home-skeleton__disc" style="--skeleton-angle: -72deg"></span>
+        </div></div>
+        <div class="home-skeleton__project"><span></span><span></span><span></span></div>
+        <div class="home-skeleton__sections"><span></span><span></span><span></span></div>
+      </div>
+      <div class="home-skeleton__mobile">
+        <div class="home-skeleton__copy"><span></span><span></span><span></span></div>
+        <div class="home-skeleton__track"><span></span><span></span><span></span><span></span><span></span></div>
+        <div class="home-skeleton__contacts"><span></span><span></span><span></span></div>
+      </div>
+    </div>
   </body>
 </html>
