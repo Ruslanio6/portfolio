@@ -133,9 +133,8 @@ figure, h1, h2, p { margin: 0; }
   border-radius: 20px;
   background: none;
   cursor: pointer;
-  transition: transform 180ms ease, border-color 360ms ease;
+  transition: border-color 360ms ease;
 }
-.portrait-button:active:not(:disabled) { transform: scale(0.96); }
 .portrait-button:focus-visible { outline: 2px solid #f2f2f2; outline-offset: 3px; }
 .portrait-button:disabled { cursor: default; }
 .portrait-image { position: absolute; inset: 0; border-radius: 19px; background: #0F0E12; pointer-events: none; }
@@ -407,7 +406,6 @@ figure, h1, h2, p { margin: 0; }
 @media (prefers-reduced-motion: reduce) {
   .icon-reveal-button, .icon-reveal-button__icon, .modifier-button,
   .portrait-button, .portrait-counter { transition: none; }
-  .portrait-button:active:not(:disabled) { transform: none; }
 }
 
 .visually-hidden {
@@ -745,9 +743,11 @@ html, body { min-height: 100%; }
   color: inherit;
   background: transparent;
 }
-:root:has(.portrait-video-dialog[open]), :root:has(.portrait-video-dialog[open]) body { overflow: hidden; }
-:root:has(.portrait-video-dialog[open]) :is(.section-arc, .orbit-about .about-text-arc, .orbit-about .about-text-list),
-:root:has(.portrait-video-dialog[open]:not([data-closing])) .orbit-about .portrait-button { visibility: hidden; }
+:root:has(.portrait-video-dialog[open]:not([data-press-pending])),
+:root:has(.portrait-video-dialog[open]:not([data-press-pending])) body { overflow: hidden; }
+.portrait-video-dialog[data-press-pending] { opacity: 0; pointer-events: none; }
+:root:has(.portrait-video-dialog[open]:not([data-press-pending])) :is(.section-arc, .orbit-about .about-text-arc, .orbit-about .about-text-list),
+:root:has(.portrait-video-dialog[open]:not([data-press-pending], [data-closing])) .orbit-about .portrait-button { visibility: hidden; }
 :root:has(.portrait-video-dialog[open][data-closing]) .orbit-about .portrait-button {
   animation: portrait-video-photo-in 220ms ease-out 50ms both,
     portrait-video-photo-scale-in 350ms ease-out 50ms both;
@@ -1453,8 +1453,6 @@ html, body { min-height: 100%; }
   }
   .mobile-gallery-list .gallery-artwork + p { margin-top: 12px; }
   .mobile-gallery-list :is(p, .gallery-artwork) + .gallery-artwork { margin-top: 64px; }
-
-  .portrait-button:active:not(:disabled) { transform: none; }
 }
 
 @keyframes mobile-project-title-in { from { opacity: .75; } to { opacity: 1; } }
