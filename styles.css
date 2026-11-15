@@ -642,8 +642,9 @@ html, body { min-height: 100%; }
 .orbit-focus-ring { position: fixed; left: 50%; top: 50%; width: calc(var(--orbit-visible-diameter) + 26px); height: calc(var(--orbit-visible-diameter) + 26px); transform: translate(-50%, -50%); z-index: 4; pointer-events: none; }
 .orbit-focus-ring path { stroke-width: 1px; vector-effect: non-scaling-stroke; }
 .project-cursor-label { position: fixed; left: 0; top: 0; z-index: 12; pointer-events: none; white-space: nowrap; font: 13px/1.4 var(--portfolio-font); transform-origin: left center; opacity: 0; visibility: hidden; transition: opacity 140ms ease-out, visibility 0s linear 140ms; }
-.project-cursor-label__content { display: inline-flex; align-items: center; gap: 6px; padding: 4px 6px; border-radius: 0; background: var(--cursor-label-surface); color: var(--cursor-label-text); transform: scale(.5); transform-origin: inherit; transition: transform 140ms ease-out; }
-.project-cursor-label__content svg { width: 14px; height: 14px; flex: none; }
+.project-cursor-label__content, .mobile-case-hint { display: inline-flex; align-items: center; gap: 6px; padding: 4px 6px; background: var(--cursor-label-surface); color: var(--cursor-label-text); }
+.project-cursor-label__content { border-radius: 0; transform: scale(.5); transform-origin: inherit; transition: transform 140ms ease-out; }
+:is(.project-cursor-label__content, .mobile-case-hint) svg { width: 14px; height: 14px; flex: none; }
 .project-cursor-label[data-visible="true"] { opacity: 1; visibility: visible; transition: opacity 240ms ease-out; }
 .project-cursor-label[data-visible="true"] .project-cursor-label__content { transform: scale(1); transition: transform 240ms ease-out; }
 .orbit-ambient { position: fixed; left: 50%; top: 50%; width: calc(var(--orbit-visible-diameter) * 3.6); height: calc(var(--orbit-visible-diameter) * 2.88); transform: translate(-50%, -50%); z-index: 0; pointer-events: none; background: transparent; mix-blend-mode: screen; opacity: 0; will-change: opacity; transition: opacity 380ms ease-out; }
@@ -789,6 +790,11 @@ html, body { min-height: 100%; }
 }
 
 .orbit-title__description [torph-root] { display: block; width: 100%; white-space: normal !important; }
+
+/* Keep the spacing of single-line controls and let multiline copy wrap like text. */
+[torph-item][data-torph-space] { white-space: pre; }
+:is(.orbit-title__description, .about-text-arc__copy, .image-accordion__meta-left, .portrait-gallery-caption, .blackjack-table-center)
+  [torph-item][data-torph-space]:not([torph-exiting]) { display: inline; white-space: inherit; }
 
 /* Header and secondary copy share the existing muted palette. */
 .portfolio-header { position: fixed; inset: 0 0 auto; height: 80px; z-index: 25; pointer-events: none; }
@@ -1059,6 +1065,9 @@ html, body { min-height: 100%; }
 :root[data-theme="light"] {
   --shortcut-surface: linear-gradient(180deg, rgb(235 235 239 / 60%), rgb(235 235 239 / 92%));
   --shortcut-color: rgb(29 28 35 / 80%);
+}
+:root:not([data-theme="light"]) :is(.orbit-scene--projects .mobile-contact-shortcuts, .project-actions) {
+  --shortcut-surface: rgb(255 255 255 / 4%);
 }
 .shortcut-tile {
   position: relative;
@@ -1344,11 +1353,15 @@ html, body { min-height: 100%; }
   .mobile-cover-track {
     --mobile-cover-size: min(61.94vw, 33svh, 350px);
     --mobile-cover-gap: calc(var(--mobile-cover-size) * 17 / 249);
+    --mobile-case-hint-overhang: 10px;
     position: relative;
     display: flex;
     gap: var(--mobile-cover-gap);
     width: 100%;
-    padding: 0 calc((100% - var(--mobile-cover-size)) / 2);
+    padding-inline: calc((100% - var(--mobile-cover-size)) / 2);
+    /* Leave room inside the scrollport for the label without shifting the layout. */
+    padding-bottom: calc(var(--mobile-case-hint-overhang) + 4px);
+    margin-bottom: calc(-1 * (var(--mobile-case-hint-overhang) + 4px));
     overflow-x: auto;
     scroll-snap-type: x mandatory;
     overscroll-behavior-x: contain;
@@ -1358,12 +1371,28 @@ html, body { min-height: 100%; }
   .mobile-cover-track::-webkit-scrollbar { display: none; }
   .mobile-cover-track[data-dragging] { scroll-snap-type: none; cursor: grabbing; }
   .mobile-cover-track[data-dragging] a { cursor: grabbing; }
-  .mobile-cover { display: block; flex: 0 0 var(--mobile-cover-size); height: var(--mobile-cover-size); scroll-snap-align: center; scroll-snap-stop: always; -webkit-user-drag: none; }
-  .mobile-cover__art { display: block; width: 100%; height: 100%; overflow: hidden; border-radius: 50%; background: #fff; transform: scale(var(--cover-scale, 1)); transform-origin: center bottom; }
+  .mobile-cover { position: relative; display: block; flex: 0 0 var(--mobile-cover-size); height: var(--mobile-cover-size); scroll-snap-align: center; scroll-snap-stop: always; -webkit-user-drag: none; }
+  .mobile-cover__motion { position: relative; display: block; width: 100%; height: 100%; transform: scale(var(--cover-scale, 1)); transform-origin: center bottom; }
+  .mobile-cover__art { display: block; width: 100%; height: 100%; overflow: hidden; border-radius: 50%; background: #fff; }
   .mobile-cover .orbit-record-hole { display: block; }
   .mobile-cover[data-vinyl-active] .orbit-record-hole { opacity: 1; transform: translate(-50%, -50%) scale(1); }
   .mobile-cover :is(img, video) { width: 100%; height: 100%; object-fit: cover; pointer-events: none; }
   .mobile-projects :is(a, [tabindex]):focus-visible { outline: 2px solid currentColor; outline-offset: -4px; }
+  .mobile-case-hint {
+    position: absolute;
+    left: 50%;
+    bottom: calc(-1 * var(--mobile-case-hint-overhang));
+    z-index: 1;
+    translate: -50% 0;
+    padding: 5px 8px;
+    border-radius: 3px;
+    font: 13px/1.4 var(--portfolio-font);
+    white-space: nowrap;
+  }
+  :root:has(.mobile-section-menu__dialog[open]) .mobile-case-hint { visibility: hidden; }
+  @media (prefers-reduced-motion: no-preference) {
+    .mobile-case-hint { animation: mobile-case-hint-in 500ms ease-out both; }
+  }
 
   .shortcut-tile::before {
     -webkit-backdrop-filter: blur(8px);
@@ -1396,6 +1425,12 @@ html, body { min-height: 100%; }
 }
 
 @keyframes mobile-project-title-in { from { opacity: .75; } to { opacity: 1; } }
+@keyframes mobile-case-hint-in {
+  0% { opacity: 0; transform: translateY(-100%) scale(.5); }
+  62% { opacity: 1; transform: translateY(3px) scale(1.06); }
+  82% { transform: translateY(-1px) scale(.98); }
+  100% { opacity: 1; transform: none; }
+}
 
 @keyframes mobile-sections-in {
   from { transform: translateY(calc(100% + var(--mobile-sheet-bottom))); }

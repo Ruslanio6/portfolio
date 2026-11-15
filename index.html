@@ -15,8 +15,19 @@
         document.querySelector('meta[name="theme-color"]').content = light ? '#ffffff' : (mobile ? '#000000' : '#0F0E12');
       } catch { /* Use the dark theme when storage is unavailable. */ }
     </script>
-    <meta name="description" content="Портфолио Руслана, продуктового дизайнера. Альфа-Банк, CARDS, МТУСИ, Sono и UI-Kit Cards+." />
-    <title>Руслан — продуктовый дизайнер</title>
+    <meta name="description" content="Продуктовый дизайнер мобильных приложений и веб-сервисов в финтех и b2c продуктах" />
+    <title>Руслан Хашимов</title>
+    <link rel="icon" href="img/favicon/favicon.svg?v=4" data-dark-href="img/favicon/favicon-dark.svg?v=4" type="image/svg+xml" sizes="any" />
+    <script>
+      {
+        const icon = document.querySelector('link[rel="icon"]');
+        const lightHref = icon.getAttribute('href');
+        const browserTheme = matchMedia('(prefers-color-scheme: dark)');
+        const update = () => { icon.href = browserTheme.matches ? icon.dataset.darkHref : lightHref; };
+        update();
+        browserTheme.addEventListener('change', update);
+      }
+    </script>
     <script>
       try {
         if (localStorage.getItem('portfolio-language') === 'en') {
@@ -28,11 +39,11 @@
     </script>
     <script>document.documentElement.classList.add('accordion-ready');</script>
     <link rel="preload" href="assets/fonts/InterVariable.woff2" as="font" type="font/woff2" crossorigin />
-    <link rel="stylesheet" href="styles.css?v=project-metadata-27" />
-    <script src="accordion.js?v=project-metadata-28" defer></script>
+    <link rel="stylesheet" href="styles.css?v=text-wrap-1" />
+    <script src="accordion.js?v=text-wrap-3" defer></script>
   </head>
   <body>
-    <a class="skip-link" href="#works"><span data-i18n-lang="ru">Перейти к работам</span><span data-i18n-lang="en">Skip to work</span></a>
+    <a class="skip-link" href="#works"><span data-i18n-lang="ru">Перейти к&nbsp;работам</span><span data-i18n-lang="en">Skip to work</span></a>
     <div id="header-root"></div>
     <div class="page"><main id="works" class="works"><div id="accordion-root" class="accordion-root"></div></main></div>
   </body>
