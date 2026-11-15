@@ -135,7 +135,6 @@ figure, h1, h2, p { margin: 0; }
   cursor: pointer;
   transition: transform 180ms ease, border-color 360ms ease;
 }
-.portrait-button:active:not(:disabled) { transform: scale(0.96); }
 .portrait-button:focus-visible { outline: 2px solid #f2f2f2; outline-offset: 3px; }
 .portrait-button:disabled { cursor: default; }
 .portrait-image { position: absolute; inset: 0; border-radius: 19px; background: #0F0E12; pointer-events: none; }
@@ -407,7 +406,6 @@ figure, h1, h2, p { margin: 0; }
 @media (prefers-reduced-motion: reduce) {
   .icon-reveal-button, .icon-reveal-button__icon, .modifier-button,
   .portrait-button, .portrait-counter { transition: none; }
-  .portrait-button:active:not(:disabled) { transform: none; }
 }
 
 .visually-hidden {
@@ -705,9 +703,6 @@ html, body { min-height: 100%; }
 .orbit-about .portrait-button { width: 100%; height: 100%; margin: 0; border: 0; border-radius: 50%; -webkit-tap-highlight-color: transparent; }
 .portrait-face { position: absolute; inset: 0; border-radius: inherit; overflow: hidden; pointer-events: none; }
 .orbit-about .portrait-image { width: 100%; height: 100%; object-fit: cover; clip-path: circle(closest-side); }
-.portrait-impact { position: absolute; left: 50%; bottom: 0; pointer-events: none; }
-.portrait-impact .motion-particle { width: 4px; height: 4px; opacity: 0; }
-.portrait-impact .motion-particle:nth-child(3n) { width: 3px; height: 3px; }
 .portrait-sparks {
   position: absolute;
   z-index: 1;
@@ -1456,8 +1451,6 @@ html, body { min-height: 100%; }
   }
   .mobile-gallery-list .gallery-artwork + p { margin-top: 12px; }
   .mobile-gallery-list :is(p, .gallery-artwork) + .gallery-artwork { margin-top: 64px; }
-
-  .portrait-button:active:not(:disabled) { transform: none; }
 }
 
 @keyframes mobile-project-title-in { from { opacity: .75; } to { opacity: 1; } }
