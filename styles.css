@@ -702,12 +702,89 @@ html, body { min-height: 100%; }
   .orbit-about__portrait { transition: scale 180ms ease; }
   .orbit-about__portrait:has(.portrait-button:hover:not(:disabled)) { scale: 1.05; }
 }
-.orbit-about .portrait-button { width: 100%; height: 100%; margin: 0; border: 0; border-radius: 50%; }
+.orbit-about .portrait-button { width: 100%; height: 100%; margin: 0; border: 0; border-radius: 50%; -webkit-tap-highlight-color: transparent; }
 .portrait-face { position: absolute; inset: 0; border-radius: inherit; overflow: hidden; pointer-events: none; }
 .orbit-about .portrait-image { width: 100%; height: 100%; object-fit: cover; clip-path: circle(closest-side); }
 .portrait-impact { position: absolute; left: 50%; bottom: 0; pointer-events: none; }
 .portrait-impact .motion-particle { width: 4px; height: 4px; opacity: 0; }
 .portrait-impact .motion-particle:nth-child(3n) { width: 3px; height: 3px; }
+.portrait-sparks {
+  --spark-gold: #ffca60;
+  --spark-core: #fff3af;
+  --spark-glow: rgb(255 163 45 / 68%);
+  position: absolute;
+  z-index: 1;
+  inset: -13%;
+  rotate: var(--spark-turn);
+  pointer-events: none;
+}
+:root[data-theme="light"] .portrait-sparks {
+  --spark-gold: #b97622;
+  --spark-core: #f3b63d;
+  --spark-glow: rgb(200 112 18 / 48%);
+}
+.portrait-sparks__arcs, .portrait-sparks__rays, .portrait-sparks__stars { position: absolute; inset: 0; }
+.portrait-sparks__arcs {
+  inset: 5%;
+  filter: drop-shadow(0 0 5px var(--spark-glow));
+  animation: portrait-spark-arcs 720ms ease-out both;
+}
+.portrait-sparks__arcs::before, .portrait-sparks__arcs::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: conic-gradient(from 26deg, transparent 0deg 14deg, var(--spark-gold) 76deg,
+    var(--spark-core) 116deg, transparent 181deg 213deg, var(--spark-gold) 270deg, transparent 334deg);
+  mask-image: radial-gradient(circle closest-side, transparent calc(100% - 2.5px), #000 calc(100% - 2px) calc(100% - .5px), transparent 100%);
+}
+.portrait-sparks__arcs::after { inset: -4%; rotate: 144deg; opacity: .48; }
+.portrait-sparks__rays {
+  background: conic-gradient(from 12deg, transparent 0deg 13deg, var(--spark-gold) 15deg, transparent 18deg 54deg,
+    var(--spark-core) 63deg, transparent 64deg 120deg, var(--spark-gold) 124deg, transparent 128deg 186deg,
+    var(--spark-core) 188deg, transparent 191deg 248deg, var(--spark-gold) 255deg, transparent 256deg 307deg,
+    var(--spark-core) 309deg, transparent 311deg);
+  mask-image: radial-gradient(circle closest-side, transparent 66%, #000 81%, transparent 100%);
+  animation: portrait-spark-rays 530ms ease-out both;
+}
+.portrait-sparks__stars { animation: portrait-spark-stars 590ms ease-out both; }
+.portrait-sparks__stars > span {
+  position: absolute;
+  width: 17%;
+  aspect-ratio: 1;
+  translate: -50% -50%;
+  filter: drop-shadow(0 0 6px var(--spark-glow));
+}
+.portrait-sparks__stars > span::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle, var(--spark-core) 24%, var(--spark-gold) 76%);
+  clip-path: polygon(50% 0, 54% 32%, 60% 41%, 69% 46%, 100% 50%, 69% 54%, 60% 59%, 54% 68%,
+    50% 100%, 46% 68%, 40% 59%, 31% 54%, 0 50%, 31% 46%, 40% 41%, 46% 32%);
+}
+.portrait-sparks__stars > span:nth-child(1) { left: 79%; top: 15%; }
+.portrait-sparks__stars > span:nth-child(2) { left: 13%; top: 29%; width: 8%; rotate: 31deg; }
+.portrait-sparks__stars > span:nth-child(3) { left: 18%; top: 81%; width: 11%; rotate: -25deg; }
+.portrait-sparks__stars > span:nth-child(4) { left: 89%; top: 68%; width: 9%; rotate: 30deg; }
+.portrait-sparks__stars > span:nth-child(5) { left: 62%; top: 92%; width: 7%; rotate: -16deg; }
+@keyframes portrait-spark-arcs {
+  0% { opacity: 0; transform: rotate(-30deg) scale(.91); }
+  24% { opacity: var(--spark-strength); }
+  100% { opacity: 0; transform: rotate(52deg) scale(1.1); }
+}
+@keyframes portrait-spark-rays {
+  0% { opacity: 0; scale: .9; }
+  20% { opacity: var(--spark-rays); }
+  100% { opacity: 0; scale: 1.13; }
+}
+@keyframes portrait-spark-stars {
+  0% { opacity: 0; scale: .88; }
+  19% { opacity: var(--spark-strength); }
+  100% { opacity: 0; scale: 1.12; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .portrait-sparks { display: none; }
+}
 @media (prefers-reduced-motion: no-preference) {
   .portrait-face[data-trembling] {
     offset-anchor: 0 0;
