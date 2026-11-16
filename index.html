@@ -41,8 +41,6 @@
     <script>
       if (!/^[1-5]$/.test(new URLSearchParams(location.search).get('project') ?? '')) {
         document.documentElement.classList.add('home-loading');
-        // Let navigation recover if the script or an image stalls.
-        setTimeout(() => document.documentElement.classList.remove('home-loading'), 12000);
         const projects = [['video-demo', 1087], ['sono', 1087], ['cards', 1087], ['ui-kit-cards', 2172], ['mtuci', 1086]];
         const sizes = matchMedia('(max-width: 760px)').matches ? 'min(61.94vw, 33svh, 350px)' : '220px';
         projects.forEach(([project, width], index) => {
@@ -58,8 +56,8 @@
         });
       }
     </script>
-    <link rel="stylesheet" href="styles.css?v=desktop-project-toc" />
-    <script src="accordion.js?v=desktop-project-toc" defer></script>
+    <link rel="stylesheet" href="styles.css?v=parallel-media-loading" />
+    <script src="accordion.js?v=portrait-end-focus" defer></script>
   </head>
   <body>
     <a class="skip-link" href="#works"><span data-i18n-lang="ru">Перейти к&nbsp;работам</span><span data-i18n-lang="en">Skip to work</span></a>
@@ -86,6 +84,10 @@
         <div class="home-skeleton__track"><span></span><span></span><span></span><span></span><span></span></div>
         <div class="home-skeleton__contacts"><span></span><span></span><span></span></div>
       </div>
+      <div class="home-skeleton__about" aria-hidden="true">
+        <span class="home-skeleton__about-copy"></span><span class="home-skeleton__about-portrait"></span>
+      </div>
+      <div class="home-skeleton__gallery" aria-hidden="true"><span></span><span></span><span></span></div>
     </div>
   </body>
 </html>
