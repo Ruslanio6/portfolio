@@ -8,7 +8,7 @@
     <script>
       try {
         const savedTheme = localStorage.getItem('portfolio-theme');
-        const mobile = matchMedia('(max-width: 760px)').matches;
+        const mobile = matchMedia('(width < 1024px)').matches;
         const light = savedTheme === 'light' || (savedTheme === null && !mobile);
         if (light) {
           document.documentElement.dataset.theme = 'light';
@@ -18,17 +18,7 @@
     </script>
     <meta name="description" content="Продуктовый дизайнер мобильных приложений и веб-сервисов в финтех и b2c продуктах" />
     <title>Руслан Хашимов</title>
-    <link rel="icon" href="img/favicon/favicon.svg?v=4" data-dark-href="img/favicon/favicon-dark.svg?v=4" type="image/svg+xml" sizes="any" />
-    <script>
-      {
-        const icon = document.querySelector('link[rel="icon"]');
-        const lightHref = icon.getAttribute('href');
-        const browserTheme = matchMedia('(prefers-color-scheme: dark)');
-        const update = () => { icon.href = browserTheme.matches ? icon.dataset.darkHref : lightHref; };
-        update();
-        browserTheme.addEventListener('change', update);
-      }
-    </script>
+    <link rel="icon" href="/img/favicon/favicon.png" type="image/png" sizes="96x96" />
     <script>
       try {
         if (localStorage.getItem('portfolio-language') === 'en') {
@@ -43,7 +33,7 @@
       if (!/^[1-5]$/.test(new URLSearchParams(location.search).get('project') ?? '')) {
         document.documentElement.classList.add('home-loading');
         const projects = [['video-demo', 1087], ['sono', 1087], ['cards', 1087], ['ui-kit-cards', 2172], ['mtuci', 1086]];
-        const sizes = matchMedia('(max-width: 760px)').matches ? 'min(61.94vw, 33svh, 350px)' : '220px';
+        const sizes = matchMedia('(width < 1024px)').matches ? 'min(61.94vw, 33svh, 350px)' : '220px';
         projects.forEach(([project, width], index) => {
           const cover = document.createElement('link');
           const base = `portfolio-cases/${project}/artwork`;
@@ -57,8 +47,8 @@
         });
       }
     </script>
-    <link rel="stylesheet" href="styles.css?v=parallel-media-loading" />
-    <script src="accordion.js?v=ga4-1" defer></script>
+    <link rel="stylesheet" href="styles.css?v=gallery-release-1" />
+    <script src="accordion.js?v=gallery-release-1" defer></script>
   </head>
   <body>
     <a class="skip-link" href="#works"><span data-i18n-lang="ru">Перейти к&nbsp;работам</span><span data-i18n-lang="en">Skip to work</span></a>
