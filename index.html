@@ -18,7 +18,17 @@
     </script>
     <meta name="description" content="Продуктовый дизайнер мобильных приложений и веб-сервисов в финтех и b2c продуктах" />
     <title>Руслан Хашимов</title>
-    <link rel="icon" href="/img/favicon/favicon.png" type="image/png" sizes="96x96" />
+    <link rel="icon" href="/img/favicon/favicon.png?v=2" type="image/png" sizes="96x96" />
+    <script>
+      {
+        const icon = document.querySelector('link[rel="icon"]');
+        const lightHref = icon.getAttribute('href');
+        const browserTheme = matchMedia('(prefers-color-scheme: dark)');
+        const update = () => { icon.href = browserTheme.matches ? '/img/favicon/favicon-dark.png?v=2' : lightHref; };
+        update();
+        browserTheme.addEventListener('change', update);
+      }
+    </script>
     <script>
       try {
         if (localStorage.getItem('portfolio-language') === 'en') {
