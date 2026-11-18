@@ -6,15 +6,14 @@
     <meta name="theme-color" content="#0F0E12" />
     <meta name="portfolio-ga4" content="G-5D5HVL7CSS" />
     <script>
+      let savedTheme;
       try {
-        const savedTheme = localStorage.getItem('portfolio-theme');
-        const mobile = matchMedia('(width < 1024px)').matches;
-        const light = savedTheme === 'light' || (savedTheme === null && !mobile);
-        if (light) {
-          document.documentElement.dataset.theme = 'light';
-        }
-        document.querySelector('meta[name="theme-color"]').content = light ? '#ffffff' : (mobile ? '#000000' : '#0F0E12');
-      } catch { /* Use the dark theme when storage is unavailable. */ }
+        savedTheme = localStorage.getItem('portfolio-theme');
+      } catch { /* Follow the system theme when storage is unavailable. */ }
+      const mobile = matchMedia('(width < 1024px)').matches;
+      const light = savedTheme === 'light' || (savedTheme !== 'dark' && !matchMedia('(prefers-color-scheme: dark)').matches);
+      document.documentElement.dataset.theme = light ? 'light' : 'dark';
+      document.querySelector('meta[name="theme-color"]').content = light ? '#ffffff' : (mobile ? '#000000' : '#0F0E12');
     </script>
     <meta name="description" content="Продуктовый дизайнер мобильных приложений и веб-сервисов в финтех и b2c продуктах" />
     <title>Руслан Хашимов</title>
@@ -58,7 +57,7 @@
       }
     </script>
     <link rel="stylesheet" href="styles.css?v=mobile-project-meta-1" />
-    <script src="accordion.js?v=mobile-gradient-colors-1" defer></script>
+    <script src="accordion.js?v=system-theme-1" defer></script>
   </head>
   <body>
     <a class="skip-link" href="#works"><span data-i18n-lang="ru">Перейти к&nbsp;работам</span><span data-i18n-lang="en">Skip to work</span></a>
