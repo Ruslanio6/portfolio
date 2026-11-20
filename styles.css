@@ -789,6 +789,7 @@ html, body { min-height: 100%; }
 .orbit .orbit-title, .section-arc, .orbit-modifiers, .orbit-scene > .blackjack-actions { font-family: var(--portfolio-font); }
 .orbit-about { position: absolute; inset: 0; touch-action: none; }
 .orbit-about[hidden] { display: none; }
+.orbit[data-orbit-context="jokes"] .orbit-titles { display: none; }
 .orbit-about__portrait { position: absolute; left: 50%; top: 50%; width: var(--orbit-visible-diameter); height: var(--orbit-visible-diameter); translate: -50% -50%; }
 @media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
   .orbit-about__portrait { transition: scale 180ms ease; }
